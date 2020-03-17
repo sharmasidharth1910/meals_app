@@ -7,12 +7,14 @@ class MealItem extends StatelessWidget {
   final String id;
   final String imageUrl;
   final int duration;
+  final Function removeItem;
   final Complexity complexity;
   final Affordability affordability;
 
   MealItem({
     @required this.id,
     @required this.title,
+    @required this.removeItem,
     @required this.imageUrl,
     @required this.duration,
     @required this.complexity,
@@ -36,9 +38,8 @@ class MealItem extends StatelessWidget {
     }
   }
 
-  String get affordabilityText{
-    switch(affordability)
-    {
+  String get affordabilityText {
+    switch (affordability) {
       case Affordability.affordable:
         return "Affordable";
         break;
@@ -48,19 +49,27 @@ class MealItem extends StatelessWidget {
       case Affordability.pricey:
         return "Pricey";
         break;
-      default: return "Unknown";
+      default:
+        return "Unknown";
         break;
     }
   }
 
   void selectedMeal(BuildContext context) {
-    Navigator.pushNamed(context, MealDetailScreen.id, arguments: id);
+    Navigator.pushNamed(
+      context,
+      MealDetailScreen.id,
+      arguments: id,
+    ).then((result) {
+      if (result != null)
+        removeItem(result);
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap:() => selectedMeal(context),
+      onTap: () => selectedMeal(context),
       child: Card(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15),
@@ -130,11 +139,13 @@ class MealItem extends StatelessWidget {
                     ],
                   ),
                   Row(
-                   children: <Widget>[
-                     Icon(Icons.attach_money),
-                     SizedBox(width: 6,),
-                     Text(affordabilityText),
-                   ], 
+                    children: <Widget>[
+                      Icon(Icons.attach_money),
+                      SizedBox(
+                        width: 6,
+                      ),
+                      Text(affordabilityText),
+                    ],
                   ),
                 ],
               ),

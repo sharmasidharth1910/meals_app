@@ -39,7 +39,7 @@ class MainDrawer extends StatelessWidget {
             ),
             onTap: () {
               Navigator.pop(context);
-              Navigator.pushNamed(context, TabsScreen.id);
+              Navigator.pushReplacementNamed(context, TabsScreen.id);
             },
           ),
           ListTile(
@@ -57,7 +57,7 @@ class MainDrawer extends StatelessWidget {
             ),
             onTap: () {
               Navigator.pop(context);
-              Navigator.pushNamed(context, FiltersScreen.id);
+              Navigator.pushReplacementNamed(context, FiltersScreen.id);
             },
           ),
         ],

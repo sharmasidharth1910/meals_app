@@ -69,13 +69,24 @@ class MealDetailScreen extends StatelessWidget {
                       ),
                       title: Text(selectedMeal.steps[index]),
                     ),
-                    Divider(thickness: 1.0, color: Colors.black54,),
+                    Divider(
+                      thickness: 1.0,
+                      color: Colors.black54,
+                    ),
                   ],
                 ),
               ),
             ),
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(
+          Icons.delete,
+        ),
+        onPressed: () {
+          Navigator.pop(context, [mealId]);
+        },
       ),
     );
   }
